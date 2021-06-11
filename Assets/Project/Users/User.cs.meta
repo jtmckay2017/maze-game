@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a13dcf069af016f43815172ca8aaf484
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - loading: {instanceID: 0}
+  - userApi: {fileID: 11400000, guid: 537a8277c6f2ef741ade457d1325eed0, type: 2}
+  - queryDisplay: {instanceID: 0}
+  - id: {instanceID: 0}
+  - username: {instanceID: 0}
+  - mutationDisplay: {instanceID: 0}
+  - subscriptionDisplay: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
