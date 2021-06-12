@@ -21,3 +21,12 @@ Game is multiplayer and has always on Voice Chat. If you don't want anyone to he
 ## Game Instruction:
 - Make it through the maze to get your key.
 - Times are saved in a database and updated live for all to see in game.
+
+## Tech Stack
+- PostgreSQL
+- Hasura
+- Heroku
+- Unity3D
+- GraphQL
+- Photon 2
+- Photon Voice
