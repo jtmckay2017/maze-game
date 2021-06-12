@@ -49,11 +49,13 @@ public class PlayerMazeManager : MonoBehaviour
     {
         if (currentMaze != null && mazeRef.mazeId == currentMaze.id)
         {
-            CreateNewScore("Test User", timeElasped, currentMaze.id);
+            int mazeIdCompleted = currentMaze.id;
+            float mazeFinalTime = timeElasped;
             currentMaze = null;
             timeElasped = 0;
-        } 
-     
+            timerText.text = FormatTime(mazeFinalTime);
+            CreateNewScore("Test User", mazeFinalTime, mazeIdCompleted);
+        }
     }
 
     public async void CreateNewScore(string name, float time, int maze_id)
