@@ -5,8 +5,6 @@ using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 using Photon.Pun;
 
-namespace KinematicCharacterController.Examples
-{
     public class ExamplePlayer : MonoBehaviour
     {
         public ExampleCharacterController Character;
@@ -110,5 +108,5 @@ namespace KinematicCharacterController.Examples
             // Apply inputs to character
             Character.SetInputs(ref characterInputs);
         }
+
     }
-}

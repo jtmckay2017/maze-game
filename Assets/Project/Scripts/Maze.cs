@@ -27,7 +27,7 @@ class Data
 }
 
 [System.Serializable]
-class MazeDef
+public class MazeDef
 {
     public int id;
     public string maze_name;
@@ -78,12 +78,26 @@ public class Maze : MonoBehaviour
         {
             // Do some setup
             mazeDisplay.text = mazeData.maze_name;
+        } else
+        {
+            Debug.LogError("MazeId doesn't map to a valid maze in the database");
         }
 
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (mazeData != null)
+        {
+            PlayerMazeManager cc = other.GetComponent<PlayerMazeManager>();
+            if (cc)
+            {
+                cc.StartMaze(mazeData);
+            }
+        }
+    }
 }
     /**
-     {"payload":
         {"data":
             {"Mazes": [
                 {
@@ -94,6 +108,4 @@ public class Maze : MonoBehaviour
                 }
             ]}
          }
-       }
-
     **/
