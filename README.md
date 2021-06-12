@@ -5,7 +5,7 @@
 Itch.io Game Link
 https://averagebrownie.itch.io/maze-game
 
-This game was made in two days for fun. The code is a mess and has a lot of unused packages that were used while testing.
+This game was made in three days for fun. The code is a mess and has a lot of unused packages that were used while testing.
 
 Source Code: https://github.com/jtmckay2017/maze-game
 
