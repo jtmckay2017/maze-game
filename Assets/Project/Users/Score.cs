@@ -4,6 +4,39 @@ using GraphQlClient.EventCallbacks;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using System;
+using System.Collections.Generic;
+using System.Collections;
+
+[System.Serializable]
+class Response
+{
+    public string type;
+    public string id;
+    public ScorePayload payload;
+}
+
+[System.Serializable]
+public class ScorePayload
+{
+    public ScoreData data;
+}
+
+[System.Serializable]
+public class ScoreData
+{
+    public ScoreDef[] Scores;
+}
+
+[System.Serializable]
+public class ScoreDef
+{
+    public int id;
+    public string name;
+    public double time;
+    public DateTime created_at;
+}
+
 
 public class Score : MonoBehaviour
 {
@@ -21,6 +54,8 @@ public class Score : MonoBehaviour
     public InputField time;
 
     public Text mutationDisplay;
+
+    private ScoreDef[] scores;
 
 
 	[Header("Subscription")]
@@ -67,8 +102,22 @@ public class Score : MonoBehaviour
 	public void DisplayData(OnSubscriptionDataReceived subscriptionDataReceived)
 	{
 		Debug.Log("I was called");
-		subscriptionDisplay.text = HttpHandler.FormatJson(subscriptionDataReceived.data);
-	}
+        Response payload = JsonUtility.FromJson<Response>(HttpHandler.FormatJson(subscriptionDataReceived.data));
+        scores = payload.payload.data.Scores;
+        subscriptionDisplay.text = HttpHandler.FormatJson(subscriptionDataReceived.data);
+        Array.Sort(scores, (a, b) => a.time.CompareTo(b.time));
+
+        subscriptionDisplay.text = "";
+
+        int rank = 1;
+        foreach (ScoreDef row in scores)
+        {
+            subscriptionDisplay.text += string.Format("#{0} | User: {1} | {2}\n\n", rank, row.name, row.time);
+            rank += 1;
+        }
+
+
+    }
 
 	public void CancelSubscribe()
 	{

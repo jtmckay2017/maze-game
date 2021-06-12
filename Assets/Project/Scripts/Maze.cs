@@ -15,13 +15,13 @@ using UnityEngine.UI;
 //}
 
 [System.Serializable]
-class Payload
+public class MazePayload
 {
-    public Data data;
+    public MazeData data;
 }
 
 [System.Serializable]
-class Data
+public class MazeData
 {
     public MazeDef[] Mazes;
 }
@@ -65,7 +65,7 @@ public class Maze : MonoBehaviour
     {
         //Debug.Log("test");
         UnityWebRequest request = await mazeApi.Post("GetMazes", GraphApi.Query.Type.Query);
-        Payload payload = JsonUtility.FromJson<Payload>(HttpHandler.FormatJson(request.downloadHandler.text));
+        MazePayload payload = JsonUtility.FromJson<MazePayload>(HttpHandler.FormatJson(request.downloadHandler.text));
         Debug.Log(payload.data.Mazes);
         foreach (MazeDef mz in payload.data.Mazes)
         {

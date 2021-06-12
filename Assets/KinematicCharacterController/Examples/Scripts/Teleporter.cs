@@ -16,6 +16,10 @@ namespace KinematicCharacterController.Examples
 
         private void OnTriggerEnter(Collider other)
         {
+            if (TeleportTo == null)
+            {
+                return;
+            }
             if (!isBeingTeleportedTo)
             {
                 ExampleCharacterController cc = other.GetComponent<ExampleCharacterController>();
