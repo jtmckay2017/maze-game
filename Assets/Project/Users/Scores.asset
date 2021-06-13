@@ -90,8 +90,8 @@ MonoBehaviour:
   mutations:
   - name: CreateNewScore
     type: 1
-    query: "mutation CreateNewScore{\n    insert_Scores{\n        affected_rows\n   
-      }\n}"
+    query: "mutation CreateNewScore{\n    insert_Scores(  objects :{ name :\"Player-1\",
+      time :5.71598434, maze_id :2} ){\n        affected_rows\n    }\n}"
     queryString: insert_Scores
     returnType: Scores_mutation_response
     queryOptions:
@@ -111,12 +111,12 @@ MonoBehaviour:
       - name: returning
         type: Scores
       hasChanged: 0
-    isComplete: 0
+    isComplete: 1
   subscriptions:
   - name: SubscribeToScores
     type: 2
     query: "subscription SubscribeToScores{\n    Scores{\n        id\n        name\n       
-      time\n        created_at\n    }\n}"
+      time\n        created_at\n        maze_id\n    }\n}"
     queryString: Scores
     returnType: Scores
     queryOptions:
@@ -179,6 +179,23 @@ MonoBehaviour:
       - name: created_at
         type: timestamptz
       - name: id
+        type: Int
+      - name: name
+        type: String
+      - name: time
+        type: Int
+      hasChanged: 0
+    - index: 2
+      name: maze_id
+      type: Int
+      parentIndexes: 
+      hasSubField: 0
+      possibleFields:
+      - name: created_at
+        type: timestamptz
+      - name: id
+        type: Int
+      - name: maze_id
         type: Int
       - name: name
         type: String

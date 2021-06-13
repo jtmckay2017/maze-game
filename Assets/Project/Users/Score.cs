@@ -32,8 +32,9 @@ public class ScoreData
 public class ScoreDef
 {
     public int id;
+    public int maze_id;
     public string name;
-    public double time;
+    public float time;
     public DateTime created_at;
 }
 
@@ -60,6 +61,7 @@ public class Score : MonoBehaviour
 
 	[Header("Subscription")]
 	public Text subscriptionDisplay;
+    public Maze maze;
 
 	private ClientWebSocket cws;
 
@@ -74,23 +76,23 @@ public class Score : MonoBehaviour
 		OnSubscriptionDataReceived.UnregisterListener(DisplayData);
 	}
 
-	public async void GetQuery()
-	{
-		loading.SetActive(true);
-		UnityWebRequest request = await scoreApi.Post("GetScores", GraphApi.Query.Type.Query);
-		loading.SetActive(false);
-		queryDisplay.text = HttpHandler.FormatJson(request.downloadHandler.text);
-	}
+	//public async void GetQuery()
+	//{
+	//	loading.SetActive(true);
+	//	UnityWebRequest request = await scoreApi.Post("GetScores", GraphApi.Query.Type.Query);
+	//	loading.SetActive(false);
+	//	queryDisplay.text = HttpHandler.FormatJson(request.downloadHandler.text);
+	//}
 
-	public async void CreateNewScore()
-	{
-		loading.SetActive(true);
-		GraphApi.Query query = scoreApi.GetQueryByName("CreateNewScore", GraphApi.Query.Type.Mutation);
-		query.SetArgs(new { objects = new { name = _name.text, time = time.text } });
-		UnityWebRequest request = await scoreApi.Post(query);
-		loading.SetActive(false);
-		mutationDisplay.text = HttpHandler.FormatJson(request.downloadHandler.text);
-	}
+	//public async void CreateNewScore()
+	//{
+	//	loading.SetActive(true);
+	//	GraphApi.Query query = scoreApi.GetQueryByName("CreateNewScore", GraphApi.Query.Type.Mutation);
+	//	query.SetArgs(new { objects = new { name = _name.text, time = time.text } });
+	//	UnityWebRequest request = await scoreApi.Post(query);
+	//	loading.SetActive(false);
+	//	mutationDisplay.text = HttpHandler.FormatJson(request.downloadHandler.text);
+	//}
 
 	public async void Subscribe()
 	{
@@ -107,12 +109,18 @@ public class Score : MonoBehaviour
         subscriptionDisplay.text = HttpHandler.FormatJson(subscriptionDataReceived.data);
         Array.Sort(scores, (a, b) => a.time.CompareTo(b.time));
 
+        // Only show scores for hard maze for now
+        ScoreDef[] filteredScores = Array.FindAll(scores, c => c.maze_id == (int)maze.mazeId);
         subscriptionDisplay.text = "";
 
         int rank = 1;
-        foreach (ScoreDef row in scores)
+        foreach (ScoreDef row in filteredScores)
         {
-            subscriptionDisplay.text += string.Format("#{0} | User: {1} | {2}\n\n", rank, row.name, row.time);
+            if (rank == 11) {
+                subscriptionDisplay.text += "Ranks past 10 aren't good enough to be displayed sorry ):";
+                return;
+            }
+            subscriptionDisplay.text += string.Format("#{0} | {1} | {2}\n\n", rank, PlayerMazeManager.FormatTime(row.time), row.name);
             rank += 1;
         }
 

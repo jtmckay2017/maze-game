@@ -4,6 +4,7 @@ using GraphQlClient.Core;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class PlayerMazeManager : MonoBehaviour
 {
@@ -20,7 +21,6 @@ public class PlayerMazeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -54,7 +54,7 @@ public class PlayerMazeManager : MonoBehaviour
             currentMaze = null;
             timeElasped = 0;
             timerText.text = FormatTime(mazeFinalTime);
-            CreateNewScore("Test User", mazeFinalTime, mazeIdCompleted);
+            CreateNewScore(PhotonNetwork.LocalPlayer.NickName, mazeFinalTime, mazeIdCompleted);
         }
     }
 
@@ -66,7 +66,7 @@ public class PlayerMazeManager : MonoBehaviour
         Debug.Log("SCORE POSTED");
     }
 
-    private string FormatTime(float time)
+    public static string FormatTime(float time)
     {
         float totalTime = time;
         //int hours = (int)(totalTime / 3600);

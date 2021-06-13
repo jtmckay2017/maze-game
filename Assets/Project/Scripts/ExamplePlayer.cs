@@ -19,6 +19,8 @@ public class ExamplePlayer : MonoBehaviour
 
     private void Start()
     {
+        PhotonNetwork.LocalPlayer.NickName = "Player-" + PhotonNetwork.PlayerList.Length;
+
         PhotonView photonView = GetComponent<PhotonView>();
         if (photonView.IsMine)
         {
