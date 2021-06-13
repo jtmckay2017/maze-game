@@ -36,10 +36,7 @@ public class PlayerMazeManager : MonoBehaviour
 
     public void StartMaze(MazeDef maze)
     {
-        if (currentMaze == null)
-        {
-            currentMaze = maze;
-        }
+        currentMaze = maze;
         timeElasped = 0;
         currentMazeText.text = maze.maze_name;
 
