@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 public class EndMaze : MonoBehaviour
@@ -23,7 +24,8 @@ public class EndMaze : MonoBehaviour
         if (mazeRef != null)
         {
             PlayerMazeManager cc = other.GetComponent<PlayerMazeManager>();
-            if (cc)
+            PhotonView ccPV = cc.GetComponent<PhotonView>();
+            if (cc && ccPV.Owner.IsLocal)
             {
                 cc.FinishCurrentMaze(mazeRef);
             }
