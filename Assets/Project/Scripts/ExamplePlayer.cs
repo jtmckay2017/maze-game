@@ -4,12 +4,23 @@ using UnityEngine;
 using KinematicCharacterController;
 using KinematicCharacterController.Examples;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class ExamplePlayer : MonoBehaviour
 {
     public ExampleCharacterController Character;
     public ExampleCharacterCamera CharacterCamera;
     private PlayerMazeManager pMazeManager;
+    public StartMenu startMenu;
+
+    PhotonView photonView;
+
+
+    private bool cursorLocked = false;
+
+    public Text playerNameTag;
+
+    private bool inStartupMenu = true;
 
     private const string MouseXInput = "Mouse X";
     private const string MouseYInput = "Mouse Y";
@@ -19,9 +30,8 @@ public class ExamplePlayer : MonoBehaviour
 
     private void Start()
     {
-        PhotonNetwork.LocalPlayer.NickName = "Player-" + PhotonNetwork.PlayerList.Length;
+        photonView = GetComponent<PhotonView>();
 
-        PhotonView photonView = GetComponent<PhotonView>();
         if (photonView.IsMine)
         {
             CharacterCamera.Camera.enabled = true;
@@ -35,13 +45,16 @@ public class ExamplePlayer : MonoBehaviour
             pMazeManager.timerText.enabled = true;
             pMazeManager.enabled = true;
 
+            startMenu.gameObject.SetActive(true);
+
+            playerNameTag.enabled = false;
+
         }
         else
         {
             enabled = false;
+            return;
         }
-
-        Cursor.lockState = CursorLockMode.Locked;
 
         // Tell camera to follow transform
         CharacterCamera.SetFollowTransform(Character.CameraFollowPoint);
@@ -51,14 +64,46 @@ public class ExamplePlayer : MonoBehaviour
         CharacterCamera.IgnoredColliders.AddRange(Character.GetComponentsInChildren<Collider>());
     }
 
+    public void UpdatePlayerNameTag(string name)
+    {
+        PhotonNetwork.LocalPlayer.NickName = name;
+        inStartupMenu = false;
+    }
+
     private void Update()
     {
-        //if (Input.GetKeyDown(0))
-        //{
-        //    Cursor.lockState = CursorLockMode.Locked;
-        //}
-
+        if (inStartupMenu)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            return;
+        }
+        HandleCursorLogic();
         HandleCharacterInput();
+    }
+
+
+    private void HandleCursorLogic()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            cursorLocked = !cursorLocked;
+        }
+        if (cursorLocked)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            if (Input.GetMouseButtonDown(0))
+            {
+                cursorLocked = true;
+            }
+        }
     }
 
     private void LateUpdate()

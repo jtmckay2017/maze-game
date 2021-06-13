@@ -72,11 +72,11 @@ namespace ExitGames.Demos.DemoPunVoice
         {
             recorderSprite.enabled = photonVoiceView.IsRecording;
             speakerSprite.enabled = photonVoiceView.IsSpeaking;
-            bufferLagText.enabled = showSpeakerLag && photonVoiceView.IsSpeaking;
-            if (bufferLagText.enabled)
-            {
-                bufferLagText.text = string.Format("{0}", photonVoiceView.SpeakerInUse.Lag);
-            }
+            //bufferLagText.enabled = showSpeakerLag && photonVoiceView.IsSpeaking;
+            //if (bufferLagText.enabled)
+            //{
+            //    bufferLagText.text = string.Format("{0}", photonVoiceView.SpeakerInUse.Lag);
+            //}
         }
 
         private void LateUpdate()

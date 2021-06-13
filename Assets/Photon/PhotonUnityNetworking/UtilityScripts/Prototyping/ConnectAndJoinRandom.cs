@@ -67,8 +67,8 @@ namespace Photon.Pun.UtilityScripts
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            Debug.Log("OnJoinRandomFailed() was called by PUN. No random room available, so we create one. Calling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 4}, null);");
-            PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = 4 }, null);
+            Debug.Log("OnJoinRandomFailed() was called by PUN. No random room available, so we create one. Calling: PhotonNetwork.CreateRoom(null, new RoomOptions() {maxPlayers = 10}, null);");
+            PhotonNetwork.CreateRoom(null, new RoomOptions() { MaxPlayers = 10 }, null);
         }
 
         // the following methods are implemented to give you some context. re-implement them as needed.

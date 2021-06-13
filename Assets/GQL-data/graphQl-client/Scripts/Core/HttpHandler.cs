@@ -144,7 +144,7 @@ namespace GraphQlClient.Core
 		//Call GetWsReturn to wait for a message from a websocket. GetWsReturn has to be called for each message
 		static async void GetWsReturn(ClientWebSocket cws){
 			ArraySegment<byte> buf = new ArraySegment<byte>(new byte[1024]);
-			buf = WebSocket.CreateClientBuffer(1024, 1024);
+			//buf = WebSocket.CreateClientBuffer(1024, 1024);
 			WebSocketReceiveResult r;
 			string result = "";
 			do{
