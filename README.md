@@ -24,7 +24,7 @@ Game is multiplayer and has always on Voice Chat. If you don't want anyone to he
 
 ## Gameplay
 
-https://www.youtube.com/watch?v=OIHV4whcJ7c&t=47s
+https://www.youtube.com/watch?v=OIHV4whcJ7c
 
 ## Tech Stack
 - PostgreSQL
