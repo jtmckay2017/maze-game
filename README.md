@@ -18,7 +18,7 @@ Game is multiplayer and has always on Voice Chat. If you don't want anyone to he
 - Unzip
 - Run Unity exe
 
-## Game Instruction:
+## Game Instructions:
 - Make it through the maze to get your key.
 - Times are saved in a database and updated live for all to see in game.
 
