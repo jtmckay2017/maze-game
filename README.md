@@ -10,6 +10,7 @@ This game was made in three days for fun. The code is a mess and has a lot of un
 Source Code: https://github.com/jtmckay2017/maze-game
 
 Game is multiplayer and has always on Voice Chat. If you don't want anyone to hear you, you will have to manually mute your mic.
+Game includes leaderboards using postgres and hasura both running on Heroku. 
 
 
 
